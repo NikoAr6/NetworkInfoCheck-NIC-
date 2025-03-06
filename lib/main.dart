@@ -27,14 +27,25 @@ class NetworkInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text( 'NetworkInfoCheck',
-          style: TextStyle(
-            color: Colors.white, //  Цвет текста - белый
-            fontFamily: 'Roboto', // Шрифт - Roboto
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0), // Фиксируем высоту AppBar
+        child: AppBar(
+          backgroundColor: const Color(0xFF3E5165),
+          flexibleSpace: Align( // Центрируем по вертикали
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Roboto',
+                  fontSize: 25,
+                ),
+              ),
+            ),
           ),
         ),
-        backgroundColor: const Color(0xFF3E5165),
       ),
       backgroundColor: Colors.grey[200],  
       body: SingleChildScrollView(
@@ -47,13 +58,17 @@ class NetworkInfoScreen extends StatelessWidget {
                 title: 'Данные телефона',
                 children: [
                   InfoRow(label: 'Имя устройства', value: 'Galaxy A55 5G', icon: Icons.phone_android),
+                  Divider(color: Colors.grey[300]),
                   InfoRow(label: 'Модель', value: 'SM-A556E/DS'),
+                  Divider(color: Colors.grey[300]),
                   InfoRow(label: 'IP адрес', value: '176.59.119.128', hasTrailingIcon: true, onTrailingIconTap: () {  
                     // Добавляем обработчик нажатия на три точки
                     },),
+                  Divider(color: Colors.grey[300]),
                   InfoRow(label: 'MAC-адрес', value: 'D2:80:CB:50:03:78', hasTrailingIcon: true, onTrailingIconTap: () {  
                     // Добавляем обработчик нажатия на три точки
                     },),
+                  Divider(color: Colors.grey[300]),
                   InfoRow(label: 'Провайдер', value: 'Tele2'),
                 ],
               ),
@@ -62,6 +77,7 @@ class NetworkInfoScreen extends StatelessWidget {
                 title: 'Интернет',
                 children: [
                   InfoRow(label: 'Тип соединения', value: 'Mobile, LTE'),
+                  Divider(color: Colors.grey[300]),
                   ClickableInfoRow(label: 'Локальная сеть',
                     onTap: () { // Добавляем обработчик нажатия для "Локальная сеть"
                         Navigator.push(
@@ -69,6 +85,7 @@ class NetworkInfoScreen extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => LocalNetworkPage()),
                         );
                       },),
+                  Divider(color: Colors.grey[300]),
                   ClickableInfoRow(label: 'Проверить скорость интернета',
                     onTap: () { // Добавляем обработчик нажатия для "Проверить скорость интернета"
                         Navigator.push(
@@ -79,9 +96,8 @@ class NetworkInfoScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20),
-              GraphSection(), // Замените этот placeholder реальным графиком
+              GraphSection(), //Место для графика
               SizedBox(height: 10),
-              WifiInfo(), // Информация о WiFi сети
             ],
           ),
         ),
@@ -89,6 +105,10 @@ class NetworkInfoScreen extends StatelessWidget {
     );
   }
 }
+
+//-----------------------------------------------------------//
+//-----------------------------------------------------------//
+//-----------------------------------------------------------//
 
 // Создаем виджеты для страниц, на которые будем переходить
 class LocalNetworkPage extends StatelessWidget {
@@ -101,12 +121,135 @@ class LocalNetworkPage extends StatelessWidget {
   }
 }
 
+//-----------------------------------------------------------//
+//-----------------------------------------------------------//
+//-----------------------------------------------------------//
+
 class SpeedTestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Проверить скорость интернета')),
-      body: Center(child: Text('Содержимое страницы "Проверить скорость интернета"')),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0), // Фиксируем высоту AppBar
+        child: AppBar(
+          backgroundColor: const Color(0xFF3E5165),
+          automaticallyImplyLeading: false,
+          flexibleSpace: Align(
+            alignment: Alignment.bottomLeft, // Выравниваем содержимое по нижней границе
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16.0, bottom: 8.0), // Отступы от низа и слева
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SizedBox(width: 15), // Отступ между стрелкой и текстом
+                  Text(
+                    'Тест скорости интернета',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Roboto',
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildInfoCard('IP адрес', '176.59.119.128'),
+                _buildInfoCard('Местонахождение', 'Russia, Nizniy Novgorog'),
+                _buildInfoCard('Поставщик', 'Tele2'),
+              ],
+            ),
+            SizedBox(height: 20),
+            // Placeholder for the graph.  Replace with your actual graph widget.
+            Container(
+              height: 200,
+              color: Colors.grey[200], // Replace with your graph widget.
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.arrow_downward, color: Colors.grey),
+                    Text('Загрузка: 49,5 kB/s', style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.arrow_upward, color: Colors.grey),
+                    Text('Отправка: 26,8 kB/s', style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildPingJitterCard('Пинг', '30.01', 'Ms'),
+                _buildPingJitterCard('Jitter', '2.9', 'Ms'),
+              ],
+            ),
+            SizedBox(height: 10),
+            Center(child: Text('T2 Mobile LLC, RU (2540 km)', style: TextStyle(color: Colors.grey))),
+            Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(String title, String value) {
+    return Column(
+      children: [
+        Text(title, style: TextStyle(color: Colors.grey)),
+        Text(value),
+      ],
+    );
+  }
+
+  Widget _buildPingJitterCard(String title, String value, String unit) {
+    return Column(
+      children: [
+        Text(title),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              width: 100,
+              height: 100,
+              child: CircularProgressIndicator(
+                value: 0.7, // Adjust value based on the actual value.  For example, value / 100
+                strokeWidth: 8,
+                backgroundColor: Colors.grey[300],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+            ),
+            Column(
+              children: [
+                Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(unit, style: TextStyle(color: Colors.grey)),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -237,30 +380,32 @@ class GraphSection extends StatelessWidget {
     return Container(
       height: 150,
       decoration: BoxDecoration(
-        color: Colors.white,  // Белый фон для графика
+        color: Colors.white, // Белый фон для графика
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Center(
-        child: Text('Graph Placeholder'),
-      ),
-    );
-  }
-}
-
-// Информация о WiFi сети внизу
-class WifiInfo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Центрируем контент по горизонтали
+      child: Column( //  Используем Column для вертикального размещения
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Размещаем контент вверху и внизу
         children: [
-          //Icon(MaterialCommunityIcons.wifi, size: 16, color: Colors.grey[600]),  // Используем MaterialCommunityIcons
-          SizedBox(width: 5), // Отступ между иконкой и текстом
-          Text(
-            'Wlan309-95A',
-            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+          Expanded( //  Занимает все доступное пространство между верхом и низом
+            child: Center( // Центрируем текст графика
+              child: Text('Graph Placeholder'),
+            ),
+          ),
+          
+          Divider(color: Colors.grey[300]),
+          
+          Padding(  // Добавляем отступы для строки текста
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center, // Центрируем строку текста горизонтально
+              children: [
+                SizedBox(width: 5), // Отступ между иконкой и текстом
+                Text(
+                  'Wlan309-95A',
+                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                ),
+              ],
+            ),
           ),
         ],
       ),
