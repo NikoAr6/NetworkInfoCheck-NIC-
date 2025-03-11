@@ -7,8 +7,9 @@
 ![Static Badge](https://img.shields.io/badge/Dev-KIWIpng-purple)
 ![Static Badge](https://img.shields.io/badge/Dev-HangingOutSayori-yellow)
 
-*болванка для лого*
 ![Logotype](./docs/Logo.jpeg)
+
+## Скриншоты приложения
 
 ## Функционал 
 - Определение скорости сети (загрузка на/из устройства)
