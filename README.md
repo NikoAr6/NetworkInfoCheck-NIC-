@@ -10,6 +10,8 @@
 ![Logotype](./docs/Logo.jpeg)
 
 ## Скриншоты приложения
+![Logotype](./docs/display1.jpeg)
+![Logotype](./docs/display2.jpeg)
 
 ## Функционал 
 - Определение скорости сети (загрузка на/из устройства)
