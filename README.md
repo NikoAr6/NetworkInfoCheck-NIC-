@@ -8,7 +8,7 @@
 ![Static Badge](https://img.shields.io/badge/Dev-HangingOutSayori-yellow)
 
 *болванка для лого*
-![Logotype](./docs/TestLogo.jpeg)
+![Logotype](./docs/Logo.jpeg)
 
 ## Функционал 
 - Определение скорости сети (загрузка на/из устройства)
