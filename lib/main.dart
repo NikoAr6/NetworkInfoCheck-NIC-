@@ -32,7 +32,7 @@ class NetworkInfoScreen extends StatelessWidget {
   final modelOfDevise = 'SM-A556E/DS';
   final IP_OfDevise = ip_adress();
   final MAC_OfDevise = 'D2:80:CB:50:03:78';
-  final ProviderOfDevise = 'Tele2';
+  final ProviderOfDevise = sim();
   final conectionType = 'Mobile, LTE';
 
   NetworkInfoScreen({Key? key, this.title = 'NetworkInfoCheck'})

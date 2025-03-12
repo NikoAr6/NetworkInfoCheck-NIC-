@@ -18,4 +18,10 @@ class RuOmpDeviceinfoFeatures extends DBusRemoteObject {
     var result = await callMethod('ru.omp.deviceinfo.Features', 'hasWlan', [], replySignature: DBusSignature('b'), noAutoStart: noAutoStart, allowInteractiveAuthorization: allowInteractiveAuthorization);
     return result.returnValues[0].asBoolean();
   }
+
+  /// Invokes ru.omp.deviceinfo.SIM.getSimCardsInfo()
+  Future<String> callgetSimCardsInfo({bool noAutoStart = false, bool allowInteractiveAuthorization = false}) async {
+    var result = await callMethod('ru.omp.deviceinfo.SIM', 'getSimCardsInfo', [], replySignature: DBusSignature('s'), noAutoStart: noAutoStart, allowInteractiveAuthorization: allowInteractiveAuthorization);
+    return result.returnValues[0].asString();
+  }
 }

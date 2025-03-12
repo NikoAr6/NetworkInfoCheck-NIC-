@@ -7,21 +7,18 @@ import 'package:get_ip_address/get_ip_address.dart';
 Future device() async{
     final client = DBusClient.session();
     final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/Features'),);
-    final model = await features.callgetDeviceModel();
-
+    final model = features.callgetDeviceModel();
     return model.toString();
-    
+
 }
 
-/*
-Future wlan() async{
-    final client = DBusClient.session();
-    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/Features'),);
-    final wlan = await features.hasWlan(bool &hasWlan);
+// Future wlan() async{
+//     final client = DBusClient.session();
+//     final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/Features'),);
+//     final wlan = await features.hasWlan(bool &hasWlan);
 
-    return wlan.toString();
-}
-*/
+//     return wlan.toString();
+// }
 
 Future ip_adress() async {
   String rez;
@@ -39,3 +36,11 @@ Future ip_adress() async {
   return rez;
 }
 
+Future sim() async{
+    final client = DBusClient.session();
+    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/SIM'),);
+    final sim = await features.callgetSimCardsInfo();
+
+    return sim.toString();
+    
+}

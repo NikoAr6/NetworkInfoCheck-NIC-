@@ -7,4 +7,9 @@
       <arg name="output" type="b" direction="out"/>
     </method>
   </interface>
+  <interface name="ru.omp.deviceinfo.SIM">
+    <method name="getSimCardsInfo">
+      <arg name="output" type="s" direction="out"/>
+    </method>
+  </interface>
 </node>
