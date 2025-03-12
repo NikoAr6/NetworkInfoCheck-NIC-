@@ -1,0 +1,10 @@
+<node>
+  <interface name="ru.omp.deviceinfo.Features">
+    <method name="getDeviceModel">
+      <arg name="output" type="s" direction="out"/>
+    </method>
+    <method name="hasWlan">
+      <arg name="output" type="b" direction="out"/>
+    </method>
+  </interface>
+</node>

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nic/data.dart';
+import 'package:dbus/dbus.dart';
+import 'package:get_ip_address/get_ip_address.dart';
 //import 'package:flutter_vector_icons/flutter_vector_icons.dart';  // Добавляем зависимость для иконок
 //import 'dart:math' as math; // Import для чисел, чтобы можно было по стандарту отформатировать
 
 import 'Functions.dart';
 import 'speedtestpage.dart';
+import 'dbus.dart';
 
 void main() {
   runApp(NIC());
@@ -21,23 +25,24 @@ class NIC extends StatelessWidget {
   }
 }
 
+// ГЛАВНЫЙ ЭКРАН //
 class NetworkInfoScreen extends StatelessWidget {
   final String title;
-  final nameDevise = 'Galaxy A55 5G';
+  final nameDevise = device();
   final modelOfDevise = 'SM-A556E/DS';
-  final IP_OfDevise = '176.59.119.128';
+  final IP_OfDevise = ip_adress();
   final MAC_OfDevise = 'D2:80:CB:50:03:78';
   final ProviderOfDevise = 'Tele2';
   final conectionType = 'Mobile, LTE';
 
-  const NetworkInfoScreen({Key? key, this.title = 'NetworkInfoCheck'})
+  NetworkInfoScreen({Key? key, this.title = 'NetworkInfoCheck'})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0), // Фиксируем высоту AppBar
+        preferredSize: Size.fromHeight(70.0), // Фиксируем высоту AppBar
         child: AppBar(
           backgroundColor: const Color(0xFF3E5165),
           flexibleSpace: Align(               // Центрируем по вертикали
@@ -131,6 +136,7 @@ class LocalNetworkPage extends StatelessWidget {
     );
   }
 }
+
 
 //-----------------------------------------------------------//
 //-----------------------------------------------------------//
