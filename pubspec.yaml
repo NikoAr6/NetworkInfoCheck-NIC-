@@ -28,6 +28,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  device_info_plus: ^11.1.0
+  device_info_plus_aurora:
+    git:
+      url: https://gitlab.com/omprussia/flutter/flutter-community-plugins/plus_plugins.git
+      ref: aurora-device_info_plus_aurora-0.5.3
+      path: packages/device_info_plus_aurora
   flutter:
     sdk: flutter
   dbus: ^0.7.11

@@ -4,13 +4,13 @@ import 'package:nic/data.dart';
 import 'package:get_ip_address/get_ip_address.dart';
 
 // пробные функции
-Future device() async{
-    final client = DBusClient.session();
-    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/Features'),);
-    final model = features.callgetDeviceModel();
-    return model.toString();
+// Future device() async{
+//     final client = DBusClient.session();
+//     final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/Features'),);
+//     final model = features.callgetDeviceModel();
+//     return model.toString();
 
-}
+// }
 
 // Future wlan() async{
 //     final client = DBusClient.session();
@@ -36,11 +36,11 @@ Future ip_adress() async {
   return rez;
 }
 
-Future sim() async{
-    final client = DBusClient.session();
-    final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/SIM'),);
-    final sim = await features.callgetSimCardsInfo();
+// Future sim() async{
+//     final client = DBusClient.session();
+//     final features = RuOmpDeviceinfoFeatures(client, 'ru.omp.deviceinfo', DBusObjectPath('/ru/omp/deviceinfo/SIM'),);
+//     final sim = await features.callgetSimCardsInfo();
 
-    return sim.toString();
+//     return sim.toString();
     
-}
+// }

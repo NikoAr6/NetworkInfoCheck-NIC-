@@ -1,27 +1,97 @@
-// This file was generated using the following command and may be overwritten.
-// dart-dbus generate-remote-object data.xml
+// SPDX-FileCopyrightText: Copyright 2024 Open Mobile Platform LLC <community@omp.ru>
+// SPDX-License-Identifier: BSD-3-Clause
+import 'package:flutter/material.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:device_info_plus_aurora/aurora_device_info.dart';
 
-import 'dart:io';
-import 'package:dbus/dbus.dart';
+void main() {
+  runApp(const MyApp());
+}
 
-class RuOmpDeviceinfoFeatures extends DBusRemoteObject {
-  RuOmpDeviceinfoFeatures(DBusClient client, String destination, DBusObjectPath path) : super(client, name: destination, path: path);
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
-  /// Invokes ru.omp.deviceinfo.Features.getDeviceModel()
-  Future<String> callgetDeviceModel({bool noAutoStart = false, bool allowInteractiveAuthorization = false}) async {
-    var result = await callMethod('ru.omp.deviceinfo.Features', 'getDeviceModel', [], replySignature: DBusSignature('s'), noAutoStart: noAutoStart, allowInteractiveAuthorization: allowInteractiveAuthorization);
-    return result.returnValues[0].asString();
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  AuroraDeviceInfo? _deviceInfo;
+  late bool _loading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
   }
 
-  /// Invokes ru.omp.deviceinfo.Features.hasWlan()
-  Future<bool> callhasWlan({bool noAutoStart = false, bool allowInteractiveAuthorization = false}) async {
-    var result = await callMethod('ru.omp.deviceinfo.Features', 'hasWlan', [], replySignature: DBusSignature('b'), noAutoStart: noAutoStart, allowInteractiveAuthorization: allowInteractiveAuthorization);
-    return result.returnValues[0].asBoolean();
+  Future<void> _getData() async {
+    setState(() {
+      _loading = true;
+    });
+
+    //  Get data
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    try {
+      final deviceInfo = await deviceInfoPlugin.linuxInfo as AuroraDeviceInfo;
+      setState(() {
+        _deviceInfo = deviceInfo;
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = 'Error retrieving data.';
+        _loading = false;
+      });
+    }
   }
 
-  /// Invokes ru.omp.deviceinfo.SIM.getSimCardsInfo()
-  Future<String> callgetSimCardsInfo({bool noAutoStart = false, bool allowInteractiveAuthorization = false}) async {
-    var result = await callMethod('ru.omp.deviceinfo.SIM', 'getSimCardsInfo', [], replySignature: DBusSignature('s'), noAutoStart: noAutoStart, allowInteractiveAuthorization: allowInteractiveAuthorization);
-    return result.returnValues[0].asString();
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Device info plus'),
+        ),
+        body: _loading
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const Text('Get current device information from within the Flutter application.'),
+                    const Divider(height: 32.0),
+                    if (_error != null) Text(_error!),
+                    if (_error == null)
+                      Column(
+                        children: [
+                          Text(
+                            'Device Full Name: ${_deviceInfo!.prettyName.toUpperCase()}',
+                          ),
+                          const SizedBox(height: 12.0),
+                          Text(
+                            'Check Has Wlan: ${_deviceInfo!.hasWlan.toString().toUpperCase()}',
+                          ),
+                          const SizedBox(height: 12.0),
+                          Text(
+                            'Screen Resolution: ${_deviceInfo!.screenResolution}',
+                          ),
+                          const SizedBox(height: 12.0),
+                          Text(
+                            'RAM Free Size: ${_deviceInfo!.ramFreeSize}',
+                          ),
+                          const SizedBox(height: 16.0),
+                          ElevatedButton(
+                            onPressed: _getData,
+                            child: const Text('Update Data'),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
+              ),
+      ),
+    );
   }
 }
